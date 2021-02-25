@@ -1,6 +1,7 @@
 import Seq0
 
 FOLDER = "./SEQUENCES/"
-id = "U5.txt"
-x = Seq0.seq_dna_fasta(FOLDER + id)
-print("The first 20 basis are: ", x[0:20])
+gene_list = ["U5", "FRAT1", "RNU6_269P", "FXN", "ADA"]
+for gene in gene_list:
+    x = Seq0.seq_dna_fasta(FOLDER + gene + ".txt")
+    print("The first 20 basis for the gene " , gene, " are: ", x[0:20])

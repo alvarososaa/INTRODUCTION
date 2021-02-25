@@ -27,5 +27,36 @@ def seq_counts(sequence):
         else:
             t += 1
     return {"A": a, "C": c, "G" : g, "T": t}
+def seq_complement(sequence):
+    complement_string = ""
+    for d in sequence:
+        if d == "A":
+            complement_string += "T"
+        elif d == "C":
+            complement_string += "G"
+        elif d == "G":
+            complement_string += "C"
+        else:
+            complement_string += "A"
+    return complement_string
+
+def most_commom_base(sequence):
+    number_list = []
+    base_list = []
+    for number in seq_counts(sequence).values():
+        number_list.append(number)
+    for base in seq_counts(sequence).keys():
+        if max(number_list) == seq_counts(sequence)[base]:
+            base_list.append(base)
+    return base_list
+
+
+
+
+
+
+
+
+
 
 
