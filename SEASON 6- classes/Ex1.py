@@ -16,22 +16,15 @@ class Seq:
             return "The sequence is correct"
     def length(self):
         return len(self.sequence)
-class generator(Seq):
-    def __init__(self , pattern , number):
-        self.pattern = pattern
-        self.number = number
-    def seq_generator(self):
-        lista = []
-        for n in range(1 , self.number + 1):
-            print("New sequence created")
-            lista.append((self.pattern) * n)
-        return lista
+    @staticmethod
+    def sequence_list(seq_list):
+        for i in range(0 , len(seq_list)):
+            print(f"Sequence {i + 1} : {seq_list[i]} {Seq(seq_list[i]).length()}  ")
 
 
 
-#seq_list = [Seq("ACT"), Seq("GATA"), Seq("CAGATA")]
-#for element in range(0, len(seq_list)):
-    #print(f"Sequence {element + 1} :  {seq_list[element]} {seq_list[element].length()}")
-gene = generator("ABCD" , 8)
-for element in gene.seq_generator():
-    print(f" Sequence : {element} {Seq(element).length()}")
+seq_list = ["AGAGA" , "ATATA" , "ACACACA"]
+Seq.sequence_list(seq_list)
+for element in seq_list:
+    print(Seq(element).sequence)
+
