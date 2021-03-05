@@ -1,5 +1,5 @@
 from Seq1 import Seq
-print("------EXCERSISE 2 and 3 and 4-------")
+print("------EXCERSISE 4-------")
 gen = Seq()
 gen_1 = Seq("ATATAT")
 gen_2 = Seq("Invalid Sequence")

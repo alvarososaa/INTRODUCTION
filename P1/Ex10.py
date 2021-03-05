@@ -4,5 +4,4 @@ FOLDER = "/home/alumnos/asosa/PycharmProjects/INTRODUCTION/P0/SEQUENCES/"
 gene_list = ["U5", "FRAT1", "RNU6_269P", "FXN", "ADA"]
 for g in gene_list:
     gen = Seq(Seq.read_fasta(FOLDER + g + ".txt"))
-    print(f"{g}: (LENGTH: {gen.length()}) {gen} \n{gen.count()} \nREV: {gen.reversed()} \nCOMPL: {gen.complement()}")
-    print(f"The most common base is:  {gen.most_common_base()}")
+    print(f"The most common base is: {gen.most_common_base()}")

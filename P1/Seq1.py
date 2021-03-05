@@ -6,7 +6,6 @@ class Seq:
             print("NULL SEQUENCE CREATED")
             self.sequence = sequence
 
-
         else:
             if Seq.is_valid_sequence_2(sequence):
                 print("NEW SEQUENCE CREATED")
@@ -14,12 +13,15 @@ class Seq:
             else:
                 self.sequence = "ERROR"
                 print("INVALID SEQUENCE CREATED")
+
     @staticmethod
     def is_valid_sequence_2(sequence):
         for c in sequence:
             if c != "A" and c != "C" and c != "G" and c != "T":
                 return False
         return True
+
+
     def count_bases(self):
         a, c, g, t = 0, 0, 0, 0
         if self.sequence == "ERROR" or self.sequence == "NULL":
@@ -35,11 +37,15 @@ class Seq:
                 else:
                     t += 1
             return a, c, g, t
+
+
     def reversed(self):
         if self.sequence == "ERROR" or self.sequence == "NULL":
             return self.sequence
         else:
             return self.sequence[::-1]
+
+
     @staticmethod
     def read_fasta(filename):
         sequence = Path(filename).read_text()
@@ -47,14 +53,18 @@ class Seq:
         return genome
 
     def most_common_base(self):
-        number_list = []
-        base_list = []
-        for number in Seq.count(self).values():
-            number_list.append(number)
-        for base in Seq.count(self).keys():
-            if max(number_list) == Seq.count(self)[base]:
-                base_list.append(base)
-        return base_list
+        value_string = ""
+        lista = []
+
+        for element in Seq.count(self).values():
+            lista.append(element)
+        for key in Seq.count(self).keys():
+            if Seq.count(self)[key] == max(lista):
+                value_string += key
+        return value_string
+
+
+
 
 
     def complement(self):
