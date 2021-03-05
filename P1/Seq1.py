@@ -45,12 +45,11 @@ class Seq:
         else:
             return self.sequence[::-1]
 
-
-    @staticmethod
-    def read_fasta(filename):
+    def read_fasta(self, filename):
         sequence = Path(filename).read_text()
         genome = sequence[sequence.find("\n") + 1:].replace("\n", "")
-        return genome
+        self.sequence = genome
+        return self.sequence
 
     def most_common_base(self):
         value_string = ""
