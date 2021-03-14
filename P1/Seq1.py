@@ -1,8 +1,9 @@
-import termcolor
 from pathlib import Path
 class Seq:
-    def __init__(self, sequence="NULL"):
-        if sequence == "NULL":
+    NULL_SEQUENCE = "NULL"
+    INVALID_SEQUENCE = "ERROR"
+    def __init__(self, sequence= NULL_SEQUENCE):
+        if sequence == Seq.NULL_SEQUENCE:
             print("NULL SEQUENCE CREATED")
             self.sequence = sequence
 
@@ -11,7 +12,7 @@ class Seq:
                 print("NEW SEQUENCE CREATED")
                 self.sequence = sequence
             else:
-                self.sequence = "ERROR"
+                self.sequence = Seq.INVALID_SEQUENCE
                 print("INVALID SEQUENCE CREATED")
 
     @staticmethod
