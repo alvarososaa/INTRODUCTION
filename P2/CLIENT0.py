@@ -7,13 +7,14 @@ class client:
         print("OK")
     def __str__(self):
         return f"Connection to server {self.ip} PORT: {self.port}"
-    def talk(self):
+    def talk(self , msg):
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.connect((self.ip, self.port))
-        s.send(str.encode("Hello from the clienttt!"))
-        msg = s.recv(1024).decode("utf-8")
+        s.send(str.encode(msg))
+        answer = s.recv(1024).decode("utf-8")
         s.close()
-        return msg
+        return "From server: " + answer
+
 
 
 

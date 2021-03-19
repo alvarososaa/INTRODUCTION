@@ -1,9 +1,11 @@
 from CLIENT0 import client
-print("---------EXCERSISE 2----------")
+print("---------EXCERSISE 3----------")
 ip = "localhost"
-PORT = 8004
+PORT = 8005
+print("Connection to server with ip: ", ip, "Port: ", PORT)
 c = client(ip, PORT)
-x = c.talk()
+x = c.talk("TESTING!")
+print("RESPONSE: ")
 print(x)
 
 
