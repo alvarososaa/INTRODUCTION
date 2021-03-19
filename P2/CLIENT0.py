@@ -8,10 +8,13 @@ class client:
     def __str__(self):
         return f"Connection to server {self.ip} PORT: {self.port}"
     def talk(self):
-        print("Conexion completing...")
-        s = socket.socket()
-        s.bind((self.ip, self.port))
-        while True:
-            conexion , adresse = s.accept()
-            conexion.send(str.encode("Hello from the server"))
-            conexion.close()
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect((self.ip, self.port))
+        s.send(str.encode("Hello from the clienttt!"))
+        msg = s.recv(1024).decode("utf-8")
+        s.close()
+        return msg
+
+
+
+
