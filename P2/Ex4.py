@@ -1,12 +1,13 @@
 from CLIENT0 import client
-from pathlib import Path
+from Seq1 import Seq
 print("---------EXCERSISE 4----------")
-sequence = "/home/alumnos/asosa/PycharmProjects/INTRODUCTION/P0/SEQUENCES/U5.txt"
+c = Seq()
+seq = c.read_fasta("U5.txt")
 ip = "localhost"
-PORT = 8006
+PORT = 8007
 print("Connection to server with ip: ", ip, "Port: ", PORT)
 c = client(ip, PORT)
 print("To server: Sending the U5.txt sequence ")
 print(c.talk("Sending the U5.txt sequence"))
-print("To server: ", Path(sequence).read_text())
-print(c.talk(Path(sequence).read_text()))
+print("To server: ", seq)
+print(c.talk(seq))
