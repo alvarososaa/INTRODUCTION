@@ -2,7 +2,7 @@ import socket
 import termcolor
 connection = 0
 ip = "localhost"
-PORT = 8008
+PORT = 8010
 s = socket.socket()
 s.bind((ip, PORT))
 s.listen(45)

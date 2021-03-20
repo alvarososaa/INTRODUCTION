@@ -1,5 +1,4 @@
 import socket
-import termcolor
 connection = 0
 ip = "localhost"
 PORT = 8008
@@ -14,5 +13,5 @@ while True:
     conex , adresse = s.accept()
     conex.send(str.encode("Hello from the teachers server"))
     msg = conex.recv(2048).decode("utf-8")
-    termcolor.cprint(("RESPONSE FROM THE CLIENT SERVER: ", msg), "yellow")
+    print("RESPONSE FROM THE CLIENT SERVER: ", msg)
     conex.close()
