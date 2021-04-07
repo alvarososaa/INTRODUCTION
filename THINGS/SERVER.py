@@ -5,7 +5,7 @@ s.bind(("localhost", 8009))
 s.listen(7)
 while True:
     conexion, adresse = s.accept()
-    print(adresse)
+    print(adressechoe)
     print("Conexion completing...")
     conexion.send(str.encode(n))
     conexion.close()
