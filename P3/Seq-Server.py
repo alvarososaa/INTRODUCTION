@@ -39,7 +39,13 @@ while True:
         response = "OK\n"
     elif command == "GET":
         termcolor.cprint(command, "green")
-        response = f"{list_sequences[int(extra)]}\n"
+        try:
+            if 0 <= int(extra) <= 4:
+                response = list_sequences[int(extra)]
+            else:
+                response = "NOT COMMAND FOUND"
+        except ValueError:
+            response = "NOT COMMAND FOUND"
     elif command == "INFO":
         termcolor.cprint(command, "green")
         seq = Seq(extra)
@@ -55,6 +61,16 @@ while True:
         reverse = Seq(extra)
         response = f"{reverse.reversed()}\n"
         print(response)
+    elif command == "GENE":
+        termcolor.cprint(command, "green")
+        if extra == "U5" or extra == "ADA" or extra == "FRAT1" or extra == "FXN" or extra == "RNU6_269P":
+            FOLDER = "./SEQUENCES/"
+            gene = Seq()
+            response = gene.read_fasta(FOLDER + extra + ".txt")
+            print(response)
+        else:
+            response = "NO GENE FOUND"
+            print(response)
 
 
     else:

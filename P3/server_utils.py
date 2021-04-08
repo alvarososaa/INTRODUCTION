@@ -12,3 +12,4 @@ def sequence(seq):
         aux_string += f"{key}: {int(value)}   ({(round((value / seq.length() * 100), 2))})\n"
     return f"TOTAL LENGTH: {seq.length()}\n{aux_string}"
 
+

@@ -14,7 +14,7 @@ class client:
         s.send(str.encode(msg))
         answer = s.recv(1024).decode("utf-8")
         s.close()
-        return "From server: " + answer
+        return  answer
     def debug_talk(self, msg):
         x = colored(client.talk(self, msg), "yellow")
         return x
