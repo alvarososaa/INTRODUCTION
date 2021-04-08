@@ -1,6 +1,8 @@
 import socket
+import termcolor
 from CLIENT0 import client
 import server_utils
+from Seq1 import Seq
 list_sequences = ["ACACACACACACACA" , "ATATATATATAT" , "AGAGCGAGCGAGT" , "ATATATCTGT" , "AAAA"]
 ls = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 ls.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -26,17 +28,34 @@ while True:
     msg_raw = cs.recv(2048)
     msg = msg_raw.decode()
     answer = msg.split(" ")
-    print(len(answer))
     if len(answer) == 1:
         command = answer[0]
     else:
         command = answer[0]
-        number = answer[1]
+        extra = answer[1]
     if command == "PING":
+        termcolor.cprint(command , "green")
         server_utils.ping()
         response = "OK\n"
     elif command == "GET":
-        response = f"{list_sequences[int(number)]}\n"
+        termcolor.cprint(command, "green")
+        response = f"{list_sequences[int(extra)]}\n"
+    elif command == "INFO":
+        termcolor.cprint(command, "green")
+        seq = Seq(extra)
+        response = server_utils.sequence(seq)
+        print(response)
+    elif command == "COMP":
+        termcolor.cprint(command, "green")
+        complement = Seq(extra)
+        response = f"{complement.complement()}\n"
+        print(response)
+    elif command == "REV":
+        termcolor.cprint(command, "green")
+        reverse = Seq(extra)
+        response = f"{reverse.reversed()}\n"
+        print(response)
+
 
     else:
         response = "NOT COMMAND FOUND\n"
