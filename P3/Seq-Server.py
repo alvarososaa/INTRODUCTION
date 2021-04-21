@@ -1,6 +1,5 @@
 import socket
 import termcolor
-from CLIENT0 import client
 import server_utils
 from Seq1 import Seq
 list_sequences = ["ACACACACACACACA" , "ATATATATATAT" , "AGAGCGAGCGAGT" , "ATATATCTGT" , "AAAA"]
