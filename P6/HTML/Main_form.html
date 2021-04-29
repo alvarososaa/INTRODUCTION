@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>BASIS SERVER</title>
+  </head>
+  <body>
+    <h1>SEQ2 SERVER</h1>
+    <p>Access the the server</p>
+    <hr>
+    <form action = "ping" method="get">
+      IS the server available<input type="submit" value="PING">
+    </form>
+    <hr>
+      <form action = "get" method="get">
+        Select the sequence you want.
+        <select name="sequence">
+          {% for n in range(0,context.n_sequences)%} %The same as ding context["n_sequences"]
+           <option value = "{{n}}">{{n}}</option>
+          {% endfor %}
+        </select>
+        <input type="submit" value="GET">
+       </form>
+    <hr>
+     <form action ="gen" method="get">
+       Select the gene you want <input type="submit" value="GEN">
+       <select name="gene">
+         {% for gene in context.gene_list %}
+          <option value = "{{gene}}">{{gene}}</option>
+         {% endfor %}}
+       </select>
+     </form>
+    <hr>
+      <form action = "operations" method = "get">
+        Write the sequence you want <input type = "text" value = "sequence">
+        Selecet the operation <input type = "radio" name = "calculations" value="INFO">INFO
+        <input type = "radio" name = "calculations" value="rev">REV
+        <input type = "radio" name = "calculations" value="COMPL">COMPL
+
+      </form>
+
+
+  </body>
+</html>
