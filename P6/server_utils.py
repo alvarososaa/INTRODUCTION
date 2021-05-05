@@ -61,7 +61,8 @@ def info(seq):
     counterC = (round(seq.count("C") / len(seq), 2)) * 100
     counterG = (round(seq.count("G") / len(seq), 2)) * 100
     counterT = (round(seq.count("T") / len(seq), 2)) * 100
-    return len(seq), f"A: {A} ({counterA})\n C: {C} ({counterC})\n G: {G} ({counterG})\n T: {T} ({counterT})"
+    return [len(seq), {"A: " : counterA, "C:" : counterC, "G:" : counterG, "T: " : counterT}]
+
 
 
 
