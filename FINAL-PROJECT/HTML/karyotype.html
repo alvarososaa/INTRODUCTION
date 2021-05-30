@@ -1,0 +1,19 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>KARYOTYPE</title>
+  </head>
+  <body>
+      <h1>KARYOTYPE</h1>
+      <p>This is the karyotype for {{context.specie}}</p>
+      <br>
+      {% for element in context.karyotype %}
+        <p>{{element}}</p>
+        <br>
+      {% endfor %}
+      <a href="/">[Main page]</a>
+
+
+    <hr>
+  </body>
+</html>

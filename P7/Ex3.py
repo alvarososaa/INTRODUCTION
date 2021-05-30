@@ -17,6 +17,7 @@ PARAMS = "?content-type=application/json"
 connection = http.client.HTTPConnection(SERVER)
 connection.request("GET", ENDPOINT + ID + PARAMS)
 response = connection.getresponse()
+
 print("RESPONSE RECEIVED:", response.status, response.reason )
 
 
