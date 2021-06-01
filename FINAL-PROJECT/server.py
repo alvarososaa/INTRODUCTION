@@ -4,6 +4,8 @@ import socketserver
 import termcolor
 import http.client
 import Server_utils as su
+import json
+import Advanced_utils as au
 PORT = 8080
 ROOT = "/home/alumnos/asosa/PycharmProjects/INTRODUCTION/FINAL-PROJECT/HTML"
 SERVER = "rest.ensembl.org"
@@ -33,69 +35,140 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         arguments = parse_qs(o.query)
         print("Resoruce requested: ", path_name)
         print("Parameters: ", arguments)
-
-        if path_name == "/":
-            context = {"gene_list": gene_dict}
-            contents = su.read_template_html_file(ROOT + "/Basic_level.html").render(context=context)
-
-        elif path_name == "/listSpecies":
-            ENDPOINT = "/info/species"
-            response = su.api_connection(ENDPOINT, PARAMS, SERVER)
-            try:
-                if type(arguments["limit"][0]) == str:
-                    contents = su.species_list(response, int(arguments["limit"][0]))
-            except KeyError:
-                contents = su.species_list(response)
-
-        elif path_name == "/Karyotype":
-            try:
-                ENDPOINT = "/info/assembly/"
-                specie = arguments["specie"][0]
-                ENDPOINT = ENDPOINT + specie
+        if 'json' in arguments.keys() and arguments["json"][0] == "1":
+            if path_name == "/listSpecies":
+                ENDPOINT = "/info/species"
                 response = su.api_connection(ENDPOINT, PARAMS, SERVER)
-                context = {"specie": specie,
-                           "karyotype": response["karyotype"]}
-                contents = su.read_template_html_file(ROOT + "/karyotype.html").render(context=context)
-            except KeyError:
-                contents = su.read_template_html_file(ROOT + "/ERROR.html").render()
-        elif path_name == "/chromosomeLength":
-            try:
-                ENDPOINT = "/info/assembly/"
-                specie = arguments["specie"][0]
-                chromo = arguments["chromo"][0]
-                ENDPOINT = ENDPOINT + specie
-                response = su.api_connection(ENDPOINT, PARAMS, SERVER)
-                contents = su.chromosome_length(response, specie, chromo)
-            except KeyError:
-                contents = su.read_template_html_file(ROOT + "/ERROR.html").render()
+                try:
+                    if type(arguments["limit"][0]) == str:
+                        contents = json.dumps(au.json_species(response, int(arguments["limit"][0])), indent=4, sort_keys=True)
+                except KeyError:
+                    contents = json.dumps(au.json_species(response), indent=4, sort_keys=True)
+                except ValueError:
+                    contents = json.dumps("Sorry, the data introduced is bad", indent=4, sort_keys=True)
+            elif path_name == "/Karyotype":
+                try:
+                    ENDPOINT = "/info/assembly/"
+                    specie = arguments["specie"][0]
+                    ENDPOINT = ENDPOINT + specie
+                    response = su.api_connection(ENDPOINT, PARAMS, SERVER)
+                    context = {"specie": specie,
+                               "karyotype": response["karyotype"]}
+                    contents = json.dumps(context, indent=4, sort_keys=True)
+                except KeyError:
+                    contents = json.dumps("Sorry, the data introduced is bad", indent=4, sort_keys=True)
+            elif path_name == "/chromosomeLength":
+                try:
+                    ENDPOINT = "/info/assembly/"
+                    specie = arguments["specie"][0]
+                    chromo = arguments["chromo"][0]
+                    ENDPOINT = ENDPOINT + specie
+                    response = su.api_connection(ENDPOINT, PARAMS, SERVER)
+                    contents = json.dumps(au.json_chromosome_length(response, specie, chromo), indent=4, sort_keys=True)
+                except KeyError:
+                    contents = json.dumps("Sorry, the data introduced is bad", indent=4, sort_keys=True)
+            elif path_name == "/geneSeq":
+                ENDPOINT = "/sequence/id/"
+                ID = arguments["gene"][0]
+                if ID in gene_dict:
+                    ENDPOINT = ENDPOINT + gene_dict[ID]
+                    response = su.api_connection(ENDPOINT, PARAMS, SERVER)
+                    context = {"Sequence": response["seq"],
+                               "name": ID,
+                               "id": response["id"]}
+                    contents = json.dumps(context, indent=4, sort_keys=True)
+                else:
+                    contents = json.dumps("Sorry, the data introduced is bad", indent=4, sort_keys=True)
 
-        elif path_name == "/geneSeq":
-            ENDPOINT = "/sequence/id/"
-            ID = arguments["gene"][0]
-            ENDPOINT = ENDPOINT + gene_dict[ID]
-            response = su.api_connection(ENDPOINT, PARAMS, SERVER)
-            context ={"Sequence": response["seq"],
-                      "name": ID,
-                      "id": response["id"]}
-            contents = su.read_template_html_file(ROOT + "/GENE.html").render(context=context)
-
-        elif path_name == "/geneInfo":
-            ENDPOINT = "/sequence/id/"
-            ID = arguments["gene"][0]
-            ENDPOINT = ENDPOINT + gene_dict[ID]
-            response = su.api_connection(ENDPOINT, PARAMS, SERVER)
-            contents = su.calculations(response, ID)
-        elif path_name == "/geneCalc":
-            ENDPOINT = "/sequence/id/"
-            ID = arguments["gene"][0]
-            ENDPOINT = ENDPOINT + gene_dict[ID]
-            response = su.api_connection(ENDPOINT, PARAMS, SERVER)
-            contents = su.second_calculations(response, ID)
-
+            elif path_name == "/geneInfo":
+                ENDPOINT = "/sequence/id/"
+                ID = arguments["gene"][0]
+                if ID in gene_dict:
+                    ENDPOINT = ENDPOINT + gene_dict[ID]
+                    response = su.api_connection(ENDPOINT, PARAMS, SERVER)
+                    contents = json.dumps(au.json_calculations(response, ID), indent=4, sort_keys=True)
+                else:
+                    contents = json.dumps("Sorry, the data introduced is bad", indent=4, sort_keys=True)
+            elif path_name == "/geneCalc":
+                ENDPOINT = "/sequence/id/"
+                ID = arguments["gene"][0]
+                if ID in gene_dict:
+                    ENDPOINT = ENDPOINT + gene_dict[ID]
+                    response = su.api_connection(ENDPOINT, PARAMS, SERVER)
+                    contents = json.dumps(au.json_second_calculations(response, ID), indent=4, sort_keys=True)
+                else:
+                    contents = json.dumps("Sorry, the data introduced is bad", indent=4, sort_keys=True)
+            else:
+                contents = json.dumps("Sorry, the data introduced is bad", indent=4, sort_keys=True)
 
 
         else:
-            contents = su.read_template_html_file(ROOT + "/ERROR.html").render()
+
+            if path_name == "/":
+                context = {"gene_list": gene_dict}
+                contents = su.read_template_html_file(ROOT + "/Basic_level.html").render(context=context)
+
+            elif path_name == "/listSpecies":
+                ENDPOINT = "/info/species"
+                response = su.api_connection(ENDPOINT, PARAMS, SERVER)
+                try:
+                    if type(arguments["limit"][0]) == str:
+                        contents = su.species_list(response, int(arguments["limit"][0]))
+                except KeyError:
+                    contents = su.species_list(response)
+                except ValueError:
+                    contents = su.read_template_html_file(ROOT + "/ERROR.html").render()
+
+            elif path_name == "/Karyotype":
+                try:
+                    ENDPOINT = "/info/assembly/"
+                    specie = arguments["specie"][0]
+                    ENDPOINT = ENDPOINT + specie
+                    response = su.api_connection(ENDPOINT, PARAMS, SERVER)
+                    context = {"specie": specie,
+                               "karyotype": response["karyotype"]}
+                    contents = su.read_template_html_file(ROOT + "/karyotype.html").render(context=context)
+                except KeyError:
+                    contents = su.read_template_html_file(ROOT + "/ERROR.html").render()
+            elif path_name == "/chromosomeLength":
+                try:
+                    ENDPOINT = "/info/assembly/"
+                    specie = arguments["specie"][0]
+                    chromo = arguments["chromo"][0]
+                    ENDPOINT = ENDPOINT + specie
+                    response = su.api_connection(ENDPOINT, PARAMS, SERVER)
+                    contents = su.chromosome_length(response, specie, chromo)
+                except KeyError:
+                    contents = su.read_template_html_file(ROOT + "/ERROR.html").render()
+
+            elif path_name == "/geneSeq":
+                ENDPOINT = "/sequence/id/"
+                ID = arguments["gene"][0]
+                ENDPOINT = ENDPOINT + gene_dict[ID]
+                response = su.api_connection(ENDPOINT, PARAMS, SERVER)
+                context ={"Sequence": response["seq"],
+                          "name": ID,
+                          "id": response["id"]}
+                contents = su.read_template_html_file(ROOT + "/GENE.html").render(context=context)
+
+            elif path_name == "/geneInfo":
+                ENDPOINT = "/sequence/id/"
+                ID = arguments["gene"][0]
+                ENDPOINT = ENDPOINT + gene_dict[ID]
+                response = su.api_connection(ENDPOINT, PARAMS, SERVER)
+                contents = su.calculations(response, ID)
+
+            elif path_name == "/geneCalc":
+                ENDPOINT = "/sequence/id/"
+                ID = arguments["gene"][0]
+                ENDPOINT = ENDPOINT + gene_dict[ID]
+                response = su.api_connection(ENDPOINT, PARAMS, SERVER)
+                contents = su.second_calculations(response, ID)
+
+
+
+            else:
+                contents = su.read_template_html_file(ROOT + "/ERROR.html").render()
 
 
 

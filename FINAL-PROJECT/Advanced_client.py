@@ -1,32 +1,65 @@
 import http.client
-import json
 import termcolor
-
+import Advanced_utils as au
 PORT = 8080
-SERVER = 'localhost'
-
-print(f"\nConnecting to server: {SERVER}:{PORT}\n")
-
-# Connect with the server
-conn = http.client.HTTPConnection(SERVER, PORT)
-
-# -- Send the request message, using the GET method. We are
-# -- requesting the main page (/)
+IP = "localhost"
+print(f"Connection to the server: {IP}: {PORT}")
 try:
-    conn.request("GET", "/species")
+    termcolor.cprint("CONNECTION TO THE SPECIES LIST", "yellow")
+    connection = http.client.HTTPConnection(IP, PORT)
+    path = "/listSpecies?limit=2&json=1"
+    contents = au.requesting_connection(path, connection)
+    au.print_json(contents)
+
+    termcolor.cprint("CONNECTION TO THE SPECIES LIST WITH NO LIMIT", "yellow")
+    path = "/listSpecies?limit=&json=1"
+    contents = au.requesting_connection(path, connection)
+    au.print_json(contents)
+    termcolor.cprint("CONNECTION TO THE SPECIES LIST WITH an INVALID LIMIT", "yellow")
+    path = "/listSpecies?limit=ABAB&json=1"
+    contents = au.requesting_connection(path, connection)
+    au.print_json(contents)
+
+    termcolor.cprint("CONNECTION TO THE KARYOTYPE", "yellow")
+    path = "/Karyotype?specie=mouse&json=1"
+    contents = au.requesting_connection(path, connection)
+    au.print_json(contents)
+    termcolor.cprint("CONNECTION TO THE KARYOTYPE WITH A NOT VALID SPECIE", "yellow")
+    path = "/Karyotype?specie=PROGRAMMING&json=1"
+    contents = au.requesting_connection(path, connection)
+    au.print_json(contents)
+
+    termcolor.cprint("CONNECTION TO THE CHROMOSOME LENGTH", "yellow")
+    path = "/chromosomeLength?specie=mouse&chromo=10&json=1"
+    contents = au.requesting_connection(path, connection)
+    au.print_json(contents)
+    termcolor.cprint("CONNECTION TO THE CHROMOSOME LENGTH WITH AN INVALID CHROMO NAME", "yellow")
+    path = "/chromosomeLength?specie=mouse&chromo=100&json=1"
+    contents = au.requesting_connection(path, connection)
+    au.print_json(contents)
+
+
+
+    termcolor.cprint("CONNECTION TO THE GENE SEQUENCE", "yellow")
+    path = "/geneSeq?gene=FRAT1&json=1"
+    contents = au.requesting_connection(path, connection)
+    au.print_json(contents)
+
+    termcolor.cprint("CONNECTION TO THE GENE INFO", "yellow")
+    path = "/geneInfo?gene=FRAT1&json=1"
+    contents = au.requesting_connection(path, connection)
+    au.print_json(contents)
+
+    termcolor.cprint("CONNECTION TO THE GENE CALCULATIONS", "yellow")
+    path = "/geneCalc?gene=FRAT1&json=1"
+    contents = au.requesting_connection(path, connection)
+    au.print_json_calculations(contents)
+    termcolor.cprint("CONNECTION TO THE GENE CALCULATIONS WITH A NOT STORED GENE", "yellow")
+    path = "/geneCalc?gene=INVALID_GENE&json=1"
+    contents = au.requesting_connection(path, connection)
+    au.print_json_calculations(contents)
+
 except ConnectionRefusedError:
-    print("ERROR! Cannot connect to the Server")
+    print("Sorry there was a connection error")
     exit()
 
-# -- Read the response message from the server
-r1 = conn.getresponse()
-
-# -- Print the status line
-print(f"Response received!: {r1.status} {r1.reason}\n")
-
-# -- Read the response's body
-data1 = r1.read().decode("utf-8")
-print(data1)
-
-# -- Create a variable with the data,
-# -- form the JSON received
