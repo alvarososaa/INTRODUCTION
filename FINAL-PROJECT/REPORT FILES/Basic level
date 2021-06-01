@@ -1,0 +1,199 @@
+BASIC LEVEL REPORT
+-------------------
+-------------------
+ENDPOINT------ listSpecies
+Test 1
+-----------
+Input:
+- http://127.0.0.1:8080/listSpecies?limit=3
+Output:
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>SPECIES LIST</title>
+  </head>
+  <body style="background-color: sandybrown;">
+  <body>
+      <h1>SPECIES LIST</h1>
+      <p>Limit: 3</p>
+      <ul>
+          <li type="square">Little spotted kiwi</li>
+          <li type="square">Indian glassy fish</li>
+          <li type="square">Blue tit</li>
+
+      </ul>
+      <a href="/">[Main page]</a>
+      <hr>
+  </body>
+</html>
+
+
+
+Test 2
+----------
+Input:
+-http://127.0.0.1:8080/listSpecies?limit=5000 and http://127.0.0.1:8080/listSpecies?limit=
+Output:
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>SPECIES LIST</title>
+  </head>
+  <body style="background-color: sandybrown;">
+  <body>
+      <h1>SPECIES LIST</h1>
+      <p>Limit: 5000 (if the limit selected was limit=  :None)</p>
+      <ul>
+
+          <li type="square">Little spotted kiwi</li>
+
+          <li type="square">Indian glassy fish</li>
+
+          <li type="square">Blue tit</li>
+
+          <li type="square">Narwhal</li>
+
+          <li type="square">American beaver</li>
+          ..... (all the species in the Species list
+          </ul>
+      <a href="/">[Main page]</a>
+      <hr>
+  </body>
+</html>
+------------------------------------------
+ENDPOINT-------karyotype
+Test 1
+-------------
+Input:
+-http://127.0.0.1:8080/Karyotype?specie=homo_sapiens
+Output:
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>KARYOTYPE</title>
+  </head>
+  <body style="background-color: pink;">
+  <body>
+      <h1>KARYOTYPE</h1>
+      <p>This is the karyotype for mouse</p>
+      <br>
+      <ul>
+
+          <li type="square">1</li>
+
+          <li type="square">2</li>
+
+          <li type="square">3</li>
+
+          <li type="square">4</li>
+
+          <li type="square">5</li>
+
+          <li type="square">6</li>
+
+          <li type="square">7</li>
+
+          <li type="square">8</li>
+
+          <li type="square">9</li>
+
+          <li type="square">10</li>
+
+          <li type="square">11</li>
+
+          <li type="square">12</li>
+
+          <li type="square">13</li>
+
+          <li type="square">14</li>
+
+          <li type="square">15</li>
+
+          <li type="square">16</li>
+
+          <li type="square">17</li>
+
+          <li type="square">18</li>
+
+          <li type="square">19</li>
+
+          <li type="square">X</li>
+
+          <li type="square">Y</li>
+
+          <li type="square">MT</li>
+
+      <a href="/">[Main page]</a>
+      <hr>
+  </body>
+</html>
+
+Test 2
+-----------------
+Input:
+-http://127.0.0.1:8080/Karyotype?specie= or http://127.0.0.1:8080/Karyotype?specie=programming
+Output:
+<!DOCTYPE html>
+    <html lang="en" dir="ltr">
+      <head>
+        <meta charset="utf-8">
+        <title>ERROR</title>
+      </head>
+      <body style="background-color: red;">
+        <h1>ERROR</h1>
+        <p1>Sorry, the data you have introduced might not be available or might be incorrect</p1>
+        <br>
+        <a href="/">[Main page]</a>
+
+      </body>
+    </html>
+
+-----------------------------------
+ENDDPOINT-----------------chromosomeLength
+Test 1
+------------------
+Input:
+-http://127.0.0.1:8080/chromosomeLength?specie=mouse&chromo=X
+Output:
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CHROMOSOME LENGTH</title>
+  </head>
+   <body style="background-color: orange;">
+  <body>
+      <h1>CHROMOSOME LEGTH</h1>
+      <p>This is the length for chromosomeX from the specie mouse:</p>
+      <br>
+      <p>169476592</p>
+      <br>
+      <a href="/">[Main page]</a>
+  </body>
+</html>
+
+
+
+
+
+Test 2
+---------------
+Input:
+-http://127.0.0.1:8080/chromosomeLength?specie=mouse&chromo=48 or http://127.0.0.1:8080/chromosomeLength?specie=&chromo=X
+and all the variants where you have bad introduced data (not valid specie, not introduced data...)
+Output:
+<!DOCTYPE html>
+    <html lang="en" dir="ltr">
+      <head>
+        <meta charset="utf-8">
+        <title>ERROR</title>
+      </head>
+      <body style="background-color: red;">
+        <h1>ERROR</h1>
+        <p1>Sorry, the data you have introduced might not be available or might be incorrect</p1>
+        <br>
+        <a href="/">[Main page]</a>
+
+      </body>
+    </html>
+
+

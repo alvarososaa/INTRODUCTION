@@ -3,18 +3,16 @@
     <meta charset="utf-8">
     <title>SPECIES LIST</title>
   </head>
+  <body style="background-color: sandybrown;">
   <body>
       <h1>SPECIES LIST</h1>
       <p>Limit: {{context.limit}}</p>
-      <br>
-      {% for element in context.Species %}
-        <p>{{element}}</p>
-        <br>
-      {% endfor %}
+      <ul>
+          {% for element in context.Species %}
+          <li type="square">{{element}}</li>
+          {% endfor %}
+      </ul>
       <a href="/">[Main page]</a>
-
-
-
-    <hr>
+      <hr>
   </body>
 </html>

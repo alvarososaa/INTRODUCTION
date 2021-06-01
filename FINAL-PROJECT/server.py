@@ -36,9 +36,11 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         arguments = parse_qs(o.query)
         print("Resoruce requested: ", path_name)
         print("Parameters: ", arguments)
+
         if path_name == "/":
             context = {"gene_list": gene_dict}
             contents = su.read_template_html_file(ROOT + "/Basic_level.html").render(context=context)
+
         elif path_name == "/listSpecies":
             ENDPOINT = "/info/species"
             response = su.api_connection(ENDPOINT, PARAMS, SERVER)
@@ -47,6 +49,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                     contents = su.species_list(response, int(arguments["limit"][0]))
             except KeyError:
                 contents = su.species_list(response)
+
         elif path_name == "/Karyotype":
             try:
                 ENDPOINT = "/info/assembly/"
@@ -68,6 +71,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 contents = su.chromosome_length(response, specie, chromo)
             except KeyError:
                 contents = su.read_template_html_file(ROOT + "/ERROR.html").render()
+
         elif path_name == "/geneSeq":
             ENDPOINT = "/sequence/id/"
             ID = arguments["gene"][0]
@@ -77,6 +81,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                       "name": ID,
                       "id": response["id"]}
             contents = su.read_template_html_file(ROOT + "/GENE.html").render(context=context)
+
         elif path_name == "/geneInfo":
             ENDPOINT = "/sequence/id/"
             ID = arguments["gene"][0]

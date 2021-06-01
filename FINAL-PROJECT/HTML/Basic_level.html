@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>BASIC INFORMATION</title>
   </head>
+   <body style="background-color: yellow;">
   <body>
     <h1>BROWSING HUMAN AND VERTEBRATES GENOMES</h1>
     <h2>Simple information</h2>
@@ -35,33 +36,36 @@
     </form>
     <hr>
     <form action ="geneSeq" method="get">
-       3) Select the gene you want <input type="submit" value="GEN">
-      <br>
+       4) Select the gene you want
        <select name="gene">
          {% for gene in context.gene_list %}
           <option value = "{{gene}}">{{gene}}</option>
          {% endfor %}
        </select>
+      <br>
+      <input type="submit" value="GEN">
      </form>
     <hr>
     <form action = "geneInfo" method="get">
-      4) Obtain information about a human gene: start, end, Length, id and Chromosome name <input type="submit" value="GEN">
-    <br>
+      5) Obtain information about a human gene: start, end, Length, id and Chromosome nam
       <select name = "gene">
          {% for gene in context.gene_list %}
           <option value = "{{gene}}">{{gene}}</option>
          {% endfor %}
       </select>
+      <br>
+      <input type="submit" value="GEN">
     </form>
     <hr>
     <form action = "geneCalc" method="get">
-      5) Perform some calulcations on the human gene: length, basis percentage <input type="submit" value="GEN">
-    <br>
+      6) Perform some calulcations on the human gene: length, basis percentage
       <select name = "gene">
          {% for gene in context.gene_list %}
           <option value = "{{gene}}">{{gene}}</option>
          {% endfor %}
       </select>
+      <br>
+      <input type="submit" value="GEN">
     </form>
 
     <hr>

@@ -3,17 +3,16 @@
     <meta charset="utf-8">
     <title>KARYOTYPE</title>
   </head>
+  <body style="background-color: pink;">
   <body>
       <h1>KARYOTYPE</h1>
       <p>This is the karyotype for {{context.specie}}</p>
       <br>
-      {% for element in context.karyotype %}
-        <p>{{element}}</p>
-        <br>
-      {% endfor %}
+      <ul>
+          {% for element in context.karyotype %}
+          <li type="square">{{element}}</li>
+          {% endfor %}
       <a href="/">[Main page]</a>
-
-
-    <hr>
+      <hr>
   </body>
 </html>

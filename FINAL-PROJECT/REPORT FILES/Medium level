@@ -1,0 +1,100 @@
+MEDIUM LEVEL REPORT
+-------------------------
+-------------------------
+ENDPOINT----------- geneSeq
+Test 1
+-------------
+Input:
+-http://127.0.0.1:8080/geneSeq?gene=FRAT1
+Output:
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>GENE SEQUENCE</title>
+  </head>
+  <body style="background-color: blueviolet;">
+  <body>
+      <h1>SEQUENCE</h1>
+      <p>This is the sequence for the gene  FRAT1 with id ENSG00000165879</p>
+      <br>
+      <textarea id = "gene_area"  name = "Gene"  rows = "10"  cols="50">
+      "Here it goes all the hole sequence of the gene"
+      <a href="/">[Main page]</a>
+
+
+    <hr>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+-----------------------
+ENDPOINT ----------- geneInfo
+Input:
+-http://127.0.0.1:8080/geneInfo?gene=FRAT1
+Output:
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>INFO</title>
+  </head>
+  <body style="background-color: lightgreen;">
+  <body>
+      <h1>INFO</h1>
+      <p>This is the info for the gene:  FRAT1</p>
+      <br>
+      <p>LENGTH: 2645</p>
+      <br>
+      <p>CHROMOSOME NAME: 10</p>
+      <br>
+      <p>ID: ENSG00000165879</p>
+      <br>
+      <p>START : 97319271</p>
+      <br>
+      <p>END : 97321915</p>
+      <a href="/">[Main page]</a>
+      <hr>
+  </body>
+</html>
+
+
+
+---------------
+ENDPOINT ------------ geneCalc
+Input:
+-http://127.0.0.1:8080/geneCalc?gene=FRAT1
+Output:
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CALCULATIONS</title>
+  </head>
+  <body>
+  <body style="background-color: green;">
+      <h1>CALCULATIONS</h1>
+      <p>This are the calculations for the gene:  FRAT1</p>
+      <br>
+      <p>LENGTH: 2645</p>
+      <br>
+      <p>PERCENTAGE OF THE BASIS:</p>
+      <br>
+      <p>1. -  A----- Number of basis: 477 Percentage: 18.0  %</p>
+      <br>
+      <p>2. -  C----- Number of basis: 799 Percentage: 30.2  %</p>
+      <br>
+      <p>3. -  G----- Number of basis: 849 Percentage: 32.1 %</p>
+      <br>
+      <p>4. -  T----- Number of basis: 520 Percentage: 19.7  %</p>
+      <br>
+      <a href="/">[Main page]</a>
+      <hr>
+  </body>
+</html>
+
+REMARK! In all this options I did not give the option to an error to occur, since I have given
+the user the options to choose, I did not let him choose an id for the gene.

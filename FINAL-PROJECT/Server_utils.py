@@ -13,7 +13,7 @@ def species_list(response, limit=None):
         for element in response["species"]:
             species_list.append(element["display_name"])
     else:
-        for element in response["species"][0: int(limit) + 1]:
+        for element in response["species"][0: int(limit)]:
             species_list.append(element["display_name"])
     context = {"Species": species_list,
                "limit": limit}
@@ -26,17 +26,19 @@ def api_connection(ENDPOINT, PARAMS, SERVER):
     response = json.loads(response.read().decode())
     return response
 def chromosome_length(response, specie, chromosome_number):
-    x = response["top_level_region"]
-    for chromosome_information in x:
-        if chromosome_information["name"] == chromosome_number:
-            length = chromosome_information["length"]
-        else:
-            pass
-    context = {"Specie": specie,
-               "chromosome_number" : chromosome_number,
-               "Length": length}
-    contents = read_template_html_file(ROOT + "/length.html").render(context=context)
-    return contents
+    try:
+        x = response["top_level_region"]
+        for chromosome_information in x:
+            if chromosome_information["name"] == chromosome_number:
+                length = chromosome_information["length"]
+        context = {"Specie": specie,
+                   "chromosome_number" : chromosome_number,
+                   "Length": length}
+        contents = read_template_html_file(ROOT + "/length.html").render(context=context)
+        return contents
+    except UnboundLocalError:
+        contents = read_template_html_file(ROOT + "/ERROR.html").render()
+        return contents
 def calculations(response, ID):
     length = len(response["seq"])
     id = response["id"]
