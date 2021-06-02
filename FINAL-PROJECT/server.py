@@ -50,6 +50,9 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 try:
                     ENDPOINT = "/info/assembly/"
                     specie = arguments["specie"][0]
+                    for element in specie:
+                        if element == " ":
+                            specie = specie.replace(element, "_")
                     ENDPOINT = ENDPOINT + specie
                     response = su.api_connection(ENDPOINT, PARAMS, SERVER)
                     context = {"specie": specie,
@@ -61,6 +64,10 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 try:
                     ENDPOINT = "/info/assembly/"
                     specie = arguments["specie"][0]
+                    for element in specie:
+                        if element == " ":
+                            specie = specie.replace(element, "_")
+                    print(specie)
                     chromo = arguments["chromo"][0]
                     ENDPOINT = ENDPOINT + specie
                     response = su.api_connection(ENDPOINT, PARAMS, SERVER)
@@ -123,6 +130,9 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 try:
                     ENDPOINT = "/info/assembly/"
                     specie = arguments["specie"][0]
+                    for element in specie:
+                        if element == " ":
+                            specie = specie.replace(element, "_")
                     ENDPOINT = ENDPOINT + specie
                     response = su.api_connection(ENDPOINT, PARAMS, SERVER)
                     context = {"specie": specie,
@@ -134,6 +144,9 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 try:
                     ENDPOINT = "/info/assembly/"
                     specie = arguments["specie"][0]
+                    for element in specie:
+                        if element == " ":
+                            specie = specie.replace(element, "_")
                     chromo = arguments["chromo"][0]
                     ENDPOINT = ENDPOINT + specie
                     response = su.api_connection(ENDPOINT, PARAMS, SERVER)
