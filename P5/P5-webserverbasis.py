@@ -2,6 +2,7 @@ import http.server
 import socketserver
 import termcolor
 import pathlib
+import json
 
 # Define the Server's port
 PORT = 8081
@@ -9,6 +10,8 @@ ROOT = "/home/alumnos/asosa/PycharmProjects/INTRODUCTION/P5/HTML"
 def read_html_file(FILENAME):
     content = pathlib.Path(FILENAME).read_text()
     return content
+answer = {'Name': 'Adenine', 'Letter' : 'A' ,
+'Link': 'https://en.wikipedia.org/wiki/Adenine', 'Formula': 'C5H5N5'}
 # -- This is for preventing the error: "Port already in use"
 socketserver.TCPServer.allow_reuse_address = True
 
@@ -34,12 +37,12 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         if self.path == "/":
             contents = read_html_file(ROOT + "/index.html")
         elif self.path == "/info/A":
-            contents = read_html_file(ROOT + "/INFO/A.html")
-        elif self.path == "/info/A":
+            contents = json.dumps(answer, indent=4, sort_keys=True)
+        elif self.path == "/info/C":
             contents = read_html_file(ROOT + "/INFO/C.html")
-        elif self.path == "/info/A":
+        elif self.path == "/info/G":
             contents = read_html_file(ROOT + "/INFO/G.html")
-        elif self.path == "/info/A":
+        elif self.path == "/info/T":
             contents = read_html_file(ROOT + "/INFO/T.html")
         elif self.path.endswith(".html"):
             try:

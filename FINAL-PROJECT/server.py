@@ -118,6 +118,11 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             elif path_name == "/listSpecies":
                 ENDPOINT = "/info/species"
                 response = su.api_connection(ENDPOINT, PARAMS, SERVER)
+                if "check" in arguments.keys():
+                    termcolor.cprint("The checkbox was checked", "red")
+                else:
+                    termcolor.cprint("The checkbox was unchecked", "red")
+
                 try:
                     if type(arguments["limit"][0]) == str:
                         contents = su.species_list(response, int(arguments["limit"][0]))
